@@ -10,7 +10,7 @@ public class Application extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
-        System.out.println("test@");
+        System.out.println("test7");
         return springApplicationBuilder.sources(Application.class);
     }
 
