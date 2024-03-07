@@ -58,3 +58,10 @@ jobs:
 
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./ROOT.zip s3://testmyawsbucket1/ROOT.zip
+
+    - name: Deploy with AWS CodeDeploy
+      run: aws deploy create-deployment
+            --application-name api.example.co.kr
+            --deployment-config-name CodeDeployDefault.OneAtATime
+            --deployment-group-name api.example.co.kr.group
+            --s3-location bucket=api.example.co.kr.bucket,bundleType=zip,key=ROOT.zip
