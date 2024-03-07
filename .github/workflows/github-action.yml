@@ -6,11 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CI with Maven #깃헙액션에서 이 name으로 build 정보가 생성
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] #이 브랜치에 푸시해야 CI처리가 된다.
 
 jobs:
   build:
@@ -47,20 +47,20 @@ jobs:
       shell: bash
 
     - name: Archive ROOT.war to ROOT.zip
-      run: zip -j ./ROOT.zip /home/runner/work/aws_test/aws_test/target/ROOT.war ./appspec.yml
+      run: zip -j ./ROOT.zip /home/runner/work/aws_test/aws_test/target/ROOT.war ./appspec.yml #배포될 ROOT 경로명 및 yml파일
 
     - name: Access to AWS
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} #IAM > 사용자로 만든 deploy-user의 시크릿키 만든거
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} #IAM > 사용자로 만든 deploy-user의 시크릿키 만든거
         aws-region: ap-northeast-2
 
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./ROOT.zip s3://testmyawsbucket1/ROOT.zip
+      run: aws s3 cp --region ap-northeast-2 ./ROOT.zip s3://testmyawsbucket1/ROOT.zip #CI 빌드 완료 후 S3에 업로드를 위한 정보
 
     - name: Deploy with AWS CodeDeploy
-      run: aws deploy create-deployment
+      run: aws deploy create-deployment #S3 업로드 후 code-deploy 에이전트가 S3에서 가져오기 위한 정보
             --application-name CodeDeployTEST
             --deployment-config-name CodeDeployDefault.AllAtOnce
             --deployment-group-name production
