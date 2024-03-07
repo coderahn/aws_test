@@ -64,4 +64,4 @@ jobs:
             --application-name CodeDeployTEST
             --deployment-config-name CodeDeployDefault.AllAtOnce
             --deployment-group-name production
-            --s3-location bucket=testmyawsbucket1.bucket,bundleType=zip,key=ROOT.zip
+            --s3-location bucket=testmyawsbucket1,bundleType=zip,key=ROOT.zip
